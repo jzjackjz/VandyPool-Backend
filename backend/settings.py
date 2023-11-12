@@ -1,5 +1,6 @@
 from pathlib import Path
 from decouple import config
+import os
 
 
 GOOGLE_CLIENT_ID = config('GOOGLE_CLIENT_ID')
@@ -98,10 +99,10 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'vandypoolpgs',
-        'USER': 'jackzhang',
-        'PASSWORD': 'vanderbiltpool123',
-        'HOST': 'localhost',
+        'NAME': os.environ.get('DATABASE_NAME', 'vandypoolpgs'),
+        'USER': os.environ.get('DATABASE_USER', 'user'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'password'),
+        'HOST': os.environ.get('DATABASE_HOST', 'db'),
         'PORT': '5432',
     }
 }
