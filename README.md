@@ -1,7 +1,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This is the backend for the VandyPool web application. Here is the link to the project: https://github.com/jzjackjz/VandyPool/tree/main
+This is the backend for the VandyPool web application. Here is the link to the project: https://github.com/jzjackjz/VandyPool/
 
 
 ### Built With
