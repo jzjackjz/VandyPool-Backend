@@ -6,4 +6,4 @@ release:
   command:
     - python manage.py migrate
 run:
-  web: gunicorn vandypool-backend.wsgi:application --log-file -
+  web: gunicorn backend.wsgi:application --log-file -
