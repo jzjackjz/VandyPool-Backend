@@ -1,18 +1,17 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This is the backend for the VandyPool web application. Here is the link to the project: https://github.com/jzjackjz/VandyPool/
+This is the backend for the VandyPool web application. This app was deployed with Heroku. Here is the link to the front-end project: https://github.com/jzjackjz/VandyPool/
 
 
 ### Built With
 
-Our project was bulit with the following languages and frameworks:
+Our full-stack project was bulit with the following languages and frameworks:
 
 * React
 * Python
-* Node.js
 * Django Framework
-
+* Heroku + Vercel
 
 ### Getting Started
 
