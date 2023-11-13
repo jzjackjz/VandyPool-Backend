@@ -106,17 +106,14 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 class TimeslotViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
-    authentication_classes = (TokenAuthentication,)
-
     queryset = Timeslot.objects.all()
     serializer_class = TimeSlotSerializer
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
 
     def get_queryset(self):
-        user = self.request.user
-        return Timeslot.objects.filter(user=user)
+        username = self.request.query_params.get('username', None)
+        if username:
+            return Timeslot.objects.filter(user=username)
+        return Timeslot.objects.all()
     
 class DriverViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]

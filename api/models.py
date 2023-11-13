@@ -25,7 +25,7 @@ class Timeslot(models.Model):
     date = models.DateField()
     time = models.TimeField()
     space_available = models.IntegerField()
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)
+    user = models.CharField(max_length=100)
 
 class Driver(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)

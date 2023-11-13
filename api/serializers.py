@@ -35,8 +35,6 @@ class UserSerializer(serializers.ModelSerializer):
 
         
 class TimeSlotSerializer(serializers.ModelSerializer):
-        user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
         class Meta:
              model = Timeslot
              fields = '__all__'
