@@ -6,7 +6,7 @@ from .models import FlightInformation, Timeslot, UserProfile, Driver
 
 class FlightInformationSerializer(serializers.ModelSerializer):
         class Meta:
-             model = Timeslot
+             model = FlightInformation
              fields = '__all__'
 
 
