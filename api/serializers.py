@@ -5,11 +5,9 @@ from .models import FlightInformation, Timeslot, UserProfile, Driver
 
 
 class FlightInformationSerializer(serializers.ModelSerializer):
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
-    class Meta:
-        model = FlightInformation
-        fields = ['id', 'ride_type', 'flight_time', 'flight_date', 'dropoff_point', 'airline', 'user']
+        class Meta:
+             model = Timeslot
+             fields = '__all__'
 
 
 class UserSerializer(serializers.ModelSerializer):

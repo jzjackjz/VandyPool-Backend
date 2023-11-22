@@ -10,8 +10,7 @@ class UserProfile(models.Model):
     profile_picture_url = models.URLField(max_length=255, null=True, blank=True)
 
 class FlightInformation(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    
+    user = models.CharField(max_length=100)    
     ride_type = models.CharField(max_length=10)
     flight_time = models.TimeField()
     flight_date = models.DateField()

@@ -80,18 +80,14 @@ def add_or_edit_phone_number(request):
 
 
 class FlightInformationViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
-    authentication_classes = (TokenAuthentication,)
-
     queryset = FlightInformation.objects.all()
     serializer_class = FlightInformationSerializer
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
     def get_queryset(self):
-        user = self.request.user
-        return FlightInformation.objects.filter(user=user)
+        username = self.request.query_params.get('username', None)
+        if username:
+            return FlightInformation.objects.filter(user=username)
+        return FlightInformation.objects.all()
 
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
