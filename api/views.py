@@ -28,7 +28,6 @@ def google_register(request):
 
         if not User.objects.filter(email=email).exists():
             user = User.objects.create_user(username=email, email=email, first_name=first_name, last_name=last_name)
-            UserProfile.objects.create(user=user, google_id=userid, profile_picture_url=profile_picture_url)
             token, created = Token.objects.get_or_create(user=user)
 
             return Response({'status': 'success', 'user_id': user.id, 'sessionToken': token.key}, status=status.HTTP_201_CREATED)
@@ -61,20 +60,6 @@ def logout_view(request):
     
     return Response({"status": "success", "message": "Logged out successfully"})
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def add_or_edit_phone_number(request):
-    user = request.user
-    phone_number = request.data.get('phone_number')
-
-    if phone_number:
-        user_profile, created = UserProfile.objects.get_or_create(user=user)
-        user_profile.phone_number = phone_number
-        user_profile.save()
-
-        return Response({'status': 'success', 'phone_number': phone_number})
-    else:
-        return Response({'status': 'error', 'message': 'No phone number provided'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -90,16 +75,14 @@ class FlightInformationViewSet(viewsets.ModelViewSet):
         return FlightInformation.objects.all()
 
 class UserViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
-    authentication_classes = (TokenAuthentication,)
-
-    queryset = User.objects.all()
+    queryset = UserProfile.objects.all()
     serializer_class = UserSerializer
-
-    @action(detail=False, methods=['get'])
-    def current_user(self, request):
-        serializer = self.get_serializer(request.user)
-        return Response(serializer.data)
+    
+    def get_queryset(self):
+        username = self.request.query_params.get('username', None)
+        if username:
+            return UserProfile.objects.filter(user=username)
+        return UserProfile.objects.all()
 
 class TimeslotViewSet(viewsets.ModelViewSet):
     queryset = Timeslot.objects.all()
@@ -112,14 +95,11 @@ class TimeslotViewSet(viewsets.ModelViewSet):
         return Timeslot.objects.all()
     
 class DriverViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
-    authentication_classes = (TokenAuthentication,)
-
     queryset = Driver.objects.all()
     serializer_class = DriverSerializer
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
 
     def get_queryset(self):
-        user = self.request.user
-        return Driver.objects.filter(user=user)
+        username = self.request.query_params.get('username', None)
+        if username:
+            return Driver.objects.filter(user=username)
+        return Driver.objects.all()

@@ -4,10 +4,11 @@ from django.db import models
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    google_id = models.CharField(max_length=100, unique=True)
+    user = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=10, default=0)
     profile_picture_url = models.URLField(max_length=255, null=True, blank=True)
+    first_name = models.CharField(max_length=255, null=True, blank=True)
+    last_name = models.CharField(max_length=255, null=True, blank=True)
 
 class FlightInformation(models.Model):
     user = models.CharField(max_length=100)    
@@ -27,7 +28,7 @@ class Timeslot(models.Model):
     user = models.CharField(max_length=100)
 
 class Driver(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)
+    user = models.CharField(max_length=100)
     carModel = models.CharField(max_length = 50)
     carColor = models.CharField(max_length = 50)
     licensePlate = models.CharField(max_length = 50)
